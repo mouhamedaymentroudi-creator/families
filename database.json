@@ -1,0 +1,39 @@
+{
+  "applications": [
+    {
+      "id": 1789806949948,
+      "userId": "1521828700033908768",
+      "username": "danger047986",
+      "date": "2026-09-19T08:35:49.948Z",
+      "status": "accept",
+      "q1": "a",
+      "q2": "a",
+      "q3": "14",
+      "q4": "aa",
+      "q5": "aa",
+      "q6": "aa",
+      "q7": "éaa",
+      "reviewedBy": "dangerxit77",
+      "reviewedAt": "2026-09-19T08:36:33.132Z",
+      "reviewNote": "MARA7BA L 5OU "
+    },
+    {
+      "id": 1789806364556,
+      "userId": "1521828700033908768",
+      "username": "danger047986",
+      "date": "2026-09-19T08:26:04.556Z",
+      "status": "accept",
+      "q1": "AYMEN",
+      "q2": "FABIO ALVAREZ",
+      "q3": "19",
+      "q4": "DANGERX",
+      "q5": "DANGERX",
+      "q6": "FIGHT",
+      "q7": "SD",
+      "reviewedBy": "dangerxit77",
+      "reviewedAt": "2026-09-19T08:26:47.192Z",
+      "reviewNote": "A7LA DANGERX"
+    }
+  ],
+  "announcements": []
+}

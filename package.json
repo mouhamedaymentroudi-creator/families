@@ -1,0 +1,23 @@
+{
+  "name": "𝕱𝖆𝖒𝖎𝖑𝖎𝖊𝖘 HUB",
+  "short_name": "𝕱𝖆𝖒𝖎𝖑𝖎𝖊𝖘",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0e11",
+  "theme_color": "#7CFF3B",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "dependencies": {
+    "discord.js": "^14.27.0",
+    "dotenv": "^18.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "passport": "^0.7.0",
+    "passport-discord": "^0.1.4"
+  }
+}

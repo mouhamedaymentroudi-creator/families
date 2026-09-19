@@ -1,0 +1,12 @@
+{
+  "name": "𝕱𝖆𝖒𝖎𝖑𝖎𝖊𝖘 HUB",
+  "short_name": "𝕱𝖆𝖒𝖎𝖑𝖎𝖊𝖘",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0e11",
+  "theme_color": "#7CFF3B",
+  "icons": [
+    { "src": "logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

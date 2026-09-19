@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>𝕱𝖆𝖒𝖎𝖑𝖎𝖊𝖘 | GANG HUB</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<!-- High-End GTA RP Fonts: Teko (Titles), Rajdhani (Headers), Inter (Crisp Clean Body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&family=Teko:wght@700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gang-green: #00ff7f;
+    --gang-green-glow: rgba(0, 255, 127, 0.4);
+    --gang-green-muted: rgba(0, 255, 127, 0.12);
+    --gang-green-dark: #059669;
+    --bg-dark: #080a0d;
+    --card-bg: rgba(13, 17, 23, 0.85);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-hover-border: rgba(0, 255, 127, 0.45);
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --danger: #ef4444;
+    --danger-glow: rgba(239, 68, 68, 0.35);
+    --warning: #f59e0b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Animated Ambient Green Glow Orb */
+  .ambient-glow {
+    position: fixed;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(0, 255, 127, 0.12) 0%, rgba(5, 150, 105, 0.04) 50%, transparent 70%);
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    animation: floatGlow 10s ease-in-out infinite alternate;
+  }
+
+  @keyframes floatGlow {
+    0% { transform: translateX(-50%) translateY(0) scale(1); }
+    100% { transform: translateX(-48%) translateY(60px) scale(1.15); }
+  }
+
+  /* Watermark */
+  .bg-watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(600px, 85vw);
+    opacity: 0.025;
+    z-index: -2;
+    pointer-events: none;
+    filter: drop-shadow(0 0 50px var(--gang-green));
+  }
+
+  /* Navigation Bar */
+  header {
+    background: rgba(8, 10, 13, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--card-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 14px 28px;
+  }
+  .navbar-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 0 16px var(--gang-green-glow);
+    transition: transform 0.3s ease;
+  }
+  .brand-logo:hover {
+    transform: scale(1.08);
+  }
+  .brand-title {
+    font-family: 'Teko', sans-serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    line-height: 1;
+    color: #fff;
+  }
+  .brand-title span { color: var(--gang-green); }
+
+  /* User Meta */
+  .user-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--card-border);
+    padding: 6px 14px 6px 8px;
+    border-radius: 30px;
+  }
+  .user-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid var(--gang-green);
+  }
+  .user-meta {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  .user-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .user-role {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gang-green);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .btn-signout {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--card-border);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  .btn-signout:hover {
+    color: #fff;
+    border-color: var(--danger);
+    background: rgba(239, 68, 68, 0.12);
+    box-shadow: 0 0 12px var(--danger-glow);
+  }
+
+  /* Main Container */
+  .wrap {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 36px 24px 90px;
+  }
+
+  /* Hero Landing */
+  .hero-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 65px 35px;
+    text-align: center;
+    max-width: 650px;
+    margin: 50px auto;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    animation: slideUp 0.5s ease-out;
+  }
+  .hero-card h1 {
+    font-family: 'Teko', sans-serif;
+    font-size: clamp(40px, 7vw, 60px);
+    letter-spacing: 2px;
+    color: #fff;
+    line-height: 1;
+    margin: 15px 0 10px;
+  }
+  .hero-card p {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
+
+  /* High-Tech Shimmer Buttons */
+  .btn-primary {
+    position: relative;
+    background: var(--gang-green);
+    color: #06090c;
+    border: none;
+    padding: 13px 34px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 20px var(--gang-green-glow);
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-20deg);
+    transition: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 255, 127, 0.55);
+  }
+  .btn-primary:hover::after {
+    left: 140%;
+    transition: left 0.6s ease;
+  }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  .btn-danger {
+    background: var(--danger);
+    color: #fff;
+    border: none;
+    padding: 11px 22px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-danger:hover {
+    background: #dc2626;
+    box-shadow: 0 4px 18px var(--danger-glow);
+  }
+
+  /* Tab Navigation */
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 25px;
+    background: rgba(14, 18, 24, 0.6);
+    border: 1px solid var(--card-border);
+    padding: 6px;
+    border-radius: 12px;
+    width: fit-content;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 10px 24px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+  .tab-btn:hover { color: #fff; }
+  .tab-btn.active {
+    background: var(--gang-green);
+    color: #06090c;
+    box-shadow: 0 4px 16px var(--gang-green-glow);
+  }
+  .tab-page { display: none; }
+  .tab-page.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  /* Main Cards */
+  .hub-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.25s ease;
+  }
+  .hub-card:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+  .hub-card-header {
+    padding: 20px 26px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .hub-card-header h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .hub-card-body { padding: 26px; }
+
+  /* Admin Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 25px;
+  }
+  .stat-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    backdrop-filter: blur(16px);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .stat-box:hover {
+    border-color: var(--card-hover-border);
+    transform: translateY(-2px);
+  }
+  .stat-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+  }
+  .stat-value {
+    font-family: 'Teko', sans-serif;
+    font-size: 42px;
+    line-height: 1;
+    color: var(--gang-green);
+    margin-top: 4px;
+  }
+
+  /* Form & Inputs */
+  .input-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .form-group { margin-bottom: 18px; }
+  input[type="text"], input[type="number"], textarea, select {
+    width: 100%;
+    background: rgba(6, 8, 12, 0.8);
+    border: 1px solid var(--card-border);
+    color: #fff;
+    padding: 13px 18px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--gang-green);
+    box-shadow: 0 0 0 3px rgba(0, 255, 127, 0.18);
+  }
+
+  /* Member Selector */
+  .member-list-filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .member-selector-box {
+    background: rgba(6, 8, 12, 0.85);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 8px;
+  }
+  .member-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+    cursor: pointer;
+  }
+  .member-row:hover { background: rgba(255, 255, 255, 0.04); }
+  .member-left { display: flex; align-items: center; gap: 12px; }
+  .member-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+  .member-name { font-size: 14px; font-weight: 600; }
+  .member-role-tag {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    background: var(--gang-green-muted);
+    color: var(--gang-green);
+    border: 1px solid rgba(0, 255, 127, 0.3);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+  }
+
+  /* Dossiers */
+  .dossier-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 18px;
+    transition: all 0.2s ease;
+  }
+  .dossier-card:hover { border-color: var(--card-hover-border); }
+  .dossier-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .dossier-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .qa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    background: rgba(6, 8, 12, 0.7);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+  .qa-item { font-size: 13px; }
+  .qa-q {
+    color: var(--gang-green);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .qa-a { color: #cbd5e1; }
+
+  /* Smooth 60fps Rules Accordion */
+  .rule-section {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .rule-section:hover { border-color: rgba(255, 255, 255, 0.15); }
+  .rule-header {
+    padding: 18px 22px;
+    background: rgba(255, 255, 255, 0.02);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--gang-green);
+    letter-spacing: 1px;
+    user-select: none;
+  }
+  .rule-arrow {
+    transition: transform 0.3s ease;
+    font-size: 14px;
+  }
+  .rule-section.active .rule-arrow {
+    transform: rotate(180deg);
+  }
+  .rule-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+  .rule-section.active .rule-wrapper {
+    grid-template-rows: 1fr;
+  }
+  .rule-content {
+    overflow: hidden;
+  }
+  .rule-body {
+    padding: 22px 26px;
+    font-size: 14px;
+    color: #cbd5e1;
+    line-height: 1.8;
+  }
+  .rule-sub {
+    margin-bottom: 18px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 14px 18px;
+    border-radius: 8px;
+    border-left: 3px solid var(--gang-green);
+  }
+  .rule-sub:last-child { margin-bottom: 0; }
+  .rule-sub h4 {
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Toast Alerts */
+  #toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .toast {
+    background: rgba(14, 18, 24, 0.95);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(16px);
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: toastIn 0.3s ease-out;
+  }
+  .toast.success { border-left: 4px solid var(--gang-green); }
+  .toast.error { border-left: 4px solid var(--danger); }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient-glow"></div>
+<img src="logo.png" class="bg-watermark" alt="">
+
+<header>
+  <div class="navbar-container">
+    <a href="/" class="brand-group">
+      <img src="logo.png" class="brand-logo" alt="Logo" onerror="this.style.display='none'">
+      <div class="brand-title">𝕱𝖆𝖒𝖎𝖑𝖎𝖊𝖘 <span>HUB</span></div>
+    </a>
+    
+    <div id="nav-user-actions" style="display:none; align-items:center; gap:16px;">
+      <div class="user-badge">
+        <img id="user-avatar" class="user-avatar" src="" alt="Avatar">
+        <div class="user-meta">
+          <span id="user-name" class="user-name">Loading...</span>
+          <span id="user-role" class="user-role">Role</span>
+        </div>
+      </div>
+      <a href="/logout" class="btn-signout">SIGN OUT</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- UNLOGGED / LANDING -->
+  <div id="sec-landing" style="display:none;">
+    <div class="hero-card">
+      <img src="logo.png" style="width:110px; height:110px; border-radius:18px; margin-bottom:12px; box-shadow: 0 0 35px var(--gang-green-glow);" alt="">
+      <h1>WELCOME TO THE FAMILIES</h1>
+      <p>Secure Portal for Candidate Dossiers, Gang Rules, Operational Guidelines and High Command Directives. Authorize your Discord account to continue.</p>
+      <a href="/auth/discord" class="btn-primary" style="padding:15px 36px;">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        Sign In with Discord
+      </a>
+    </div>
+  </div>
+
+  <!-- ADMIN HIGH COMMAND DASHBOARD -->
+  <div id="sec-admin" style="display:none;">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-label">Pending Dossiers</div>
+        <div class="stat-value" id="stat-pending">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Server Members</div>
+        <div class="stat-value" id="stat-members">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Total Applications</div>
+        <div class="stat-value" id="stat-total">0</div>
+      </div>
+    </div>
+
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchAdminTab('adm-apps', this)">RECRUITMENT DOSSIERS</button>
+      <button class="tab-btn" onclick="switchAdminTab('adm-dm', this)">MASS COMMUNICATOR</button>
+      <button class="tab-btn" onclick="switchAdminTab('adm-ann', this)">GLOBAL BROADCAST</button>
+    </div>
+
+    <!-- Admin: Applications Review -->
+    <div class="tab-page active" id="tabpage-adm-apps">
+      <div class="hub-card">
+        <div class="hub-card-header">
+          <h2>CANDIDATE DOSSIERS</h2>
+          <div style="display:flex; gap:8px;">
+            <button class="btn-secondary" onclick="loadApps('pending')">Pending</button>
+            <button class="btn-secondary" onclick="loadApps('all')">View All</button>
+          </div>
+        </div>
+        <div class="hub-card-body" id="app-list">
+          <p style="color:var(--text-muted);">Loading candidates...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin: Mass DM -->
+    <div class="tab-page" id="tabpage-adm-dm">
+      <div class="hub-card">
+        <div class="hub-card-header">
+          <h2>MASS ENCRYPTED DISPATCH</h2>
+          <span id="selected-count" style="font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:700; color:var(--gang-green);">0 Selected</span>
+        </div>
+        <div class="hub-card-body">
+          <div class="member-list-filter">
+            <input type="text" id="member-search" style="flex:1;" placeholder="Filter by username or role..." onkeyup="filterMembers()">
+            <button class="btn-secondary" onclick="selectAllMembers(true)">Select All</button>
+            <button class="btn-secondary" onclick="selectAllMembers(false)">Clear</button>
+          </div>
+          <div class="member-selector-box" id="member-list-container">
+            Loading members...
+          </div>
+
+          <div style="margin-top:24px;">
+            <div class="form-group">
+              <label class="input-label">Embed Subject Header</label>
+              <input type="text" id="dm-title" value="𝕱𝖆𝖒𝖎𝖑𝖎𝖊𝖘 | DISPATCH">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Dispatch Body</label>
+              <textarea id="dm-text" rows="4" placeholder="Transmit urgent meeting callouts or convoy instructions..."></textarea>
+            </div>
+            <button class="btn-primary" onclick="sendMassDM()" id="btn-send-dm">
+              Transmit Direct Messages
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin: Global Announcement -->
+    <div class="tab-page" id="tabpage-adm-ann">
+      <div class="hub-card">
+        <div class="hub-card-header">
+          <h2>OFFICIAL DISCORD & PORTAL BROADCAST</h2>
+        </div>
+        <div class="hub-card-body">
+          <div class="form-group">
+            <label class="input-label">Announcement Title</label>
+            <input type="text" id="ann-title" placeholder="e.g. Hood Meeting / Defense Alert">
+          </div>
+          <div class="form-group">
+            <label class="input-label">Directive Content</label>
+            <textarea id="ann-msg" rows="5" placeholder="Enter broadcast text..."></textarea>
+          </div>
+          <div class="form-group" style="display:flex; align-items:center; gap:10px;">
+            <input type="checkbox" id="ann-ping" style="width:18px; height:18px; accent-color:var(--gang-green); cursor:pointer;">
+            <label for="ann-ping" style="font-size:14px; cursor:pointer; font-weight:600;">Mention @everyone in Discord</label>
+          </div>
+          <button class="btn-primary" onclick="sendAnn()" id="btn-send-ann">Publish Official Directive</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEMBER & GUEST DASHBOARD -->
+  <div id="sec-dashboard" style="display:none;">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchUserTab('rules', this)">GANG RULES</button>
+      <button class="tab-btn" id="tabbtn-ann" onclick="switchUserTab('ann', this)" style="display:none;">ANNOUNCEMENTS</button>
+      <button class="tab-btn" id="tabbtn-apply" onclick="switchUserTab('apply', this)">APPLY TO JOIN</button>
+    </div>
+
+    <!-- Tab: Gang Rules (Full Tunisian Rules Restored) -->
+    <div class="tab-page active" id="tabpage-rules">
+      <div class="hub-card">
+        <div class="hub-card-header">
+          <h2>𝕱𝖆𝖒𝖎𝖑𝖎𝖊𝖘 CODE OF CONDUCT</h2>
+          <span style="font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:700; color:var(--danger); letter-spacing:1px;">3 WARNS = OUT OF GANG</span>
+        </div>
+        <div class="hub-card-body">
+          
+          <!-- SECTION 1 -->
+          <div class="rule-section active">
+            <div class="rule-header" onclick="toggleAccordion(this)">
+              <span>🔰 RESPECT & BROTHERHOOD</span>
+              <span class="rule-arrow">▼</span>
+            </div>
+            <div class="rule-wrapper">
+              <div class="rule-content">
+                <div class="rule-body">
+                  <div class="rule-sub">
+                    <h4>1. Respect Between Members</h4>
+                    <p>Awel 7aja, ne7tarmou b3adhna fel Discord w fel Game. Fel Game, kol member lezem ye7tarem el Role elli a3la menou, surtout 9odem les gangs w les joueurs lokhrin.</p>
+                  </div>
+                  <div class="rule-sub">
+                    <h4>2. Insults & Offensive Language</h4>
+                    <p>Saben l3ayla, el kofr, w ay klem mas2 lel i7tiram <strong>interdit</strong>. Fel Discord, ken t7eb tseb chkoun wala t3abber 3la mochkla, nesta3mlou room <strong>No Access</strong> 5ater m3ana bnet. Fel Game, ken fama tofla mawjouda ba7dhek wala fel Radio, <strong>man8ir klem zeyed</strong>.</p>
+                  </div>
+                  <div class="rule-sub">
+                    <h4>3. Problems Between Members</h4>
+                    <p>Ken 3andek mochkla m3a chkoun, taw n7awlou dima nsal7ouha 5ater <strong>kolna 5wet</strong>. Ken ma tsal7etch el mochkla, man7ebouch ay mochkla okhra tetkabar. Ken lmochkla testa7a9 RP, tnejem testa3mel <strong>wasit</strong> binetkom bech tet7al bel behi.</p>
+                  </div>
+                  <div class="rule-sub">
+                    <h4>4. No Toxicity & Stay Mature</h4>
+                    <p>7awel dima matkounch toxic w matetlakech 3la ay member fel gang wala 3la gang okhra. N7ebbou nkounou rzan w mo5na kbir. Na3mlou scenet bel RP w man8ir tmafri5 wala berzana. Ken chkoun etlakech 3lik, <strong>matfightich toul</strong> — emchi a7ki m3a boss bech nefhmou lmochkla.</p>
+                  </div>
+                  <div class="rule-sub">
+                    <h4>5. Serious Roleplay & Hierarchy</h4>
+                    <p>Bellehi n7awlou dima nela3bou <strong>RP s7i7</strong> w na3mlou scenet sme7a man8ir fail RP. Mech dima kol chay yet7al bel fight. Fel Discord, man7ebouch kol chwaya chkoun y9oul "a3tini role". Kolna w5ayen, w ay role tet3ata 3la 7sab l'organisation mta3 gang.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 2 -->
+          <div class="rule-section">
+            <div class="rule-header" onclick="toggleAccordion(this)">
+              <span>🧿 REGULARITY & GANG OPERATIONS</span>
+              <span class="rule-arrow">▼</span>
+            </div>
+            <div class="rule-wrapper">
+              <div class="rule-content">
+                <div class="rule-body">
+                  <div class="rule-sub">
+                    <h4>1. Radio Discipline</h4>
+                    <p>Fel Radio, <strong>mata7kich ken 3la infouwet mouhema</strong> wala 7aja testa7a9 tousel lel members elli fel Radio. Ken t7eb ta7ki m3a we7ed bark wala zouz, nesta3mlou <strong>Telephone</strong>.</p>
+                  </div>
+                  <div class="rule-sub">
+                    <h4>2. Presence</h4>
+                    <p>Ay member 3andou ay reason maynejemch yji, lezem yekteb fi room <strong>Presence</strong>. Ken el reason 5as, tnejem t9oul juste elli 3andek reason 5as bech na3rfou 9adech men member najemou nkounou mawjoudin.</p>
+                  </div>
+                  <div class="rule-sub">
+                    <h4>3. Gang Meetings & Convoys</h4>
+                    <p>Ken fama reunion mta3 gang, lezem kol member yji fel wa9t w blasa elli tfehemna 3liha. Nkonou mna4min, kol we7ed ywa9ef 7dhe we7ed. El Boss wala elli 3amel el reunion houwa elli ya7ki. Ken m3a gang okhra, nemchiw bel karhbet mna4min karahba wra karahba.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 3 -->
+          <div class="rule-section">
+            <div class="rule-header" onclick="toggleAccordion(this)">
+              <span>⚠️ WARN SYSTEM</span>
+              <span class="rule-arrow">▼</span>
+            </div>
+            <div class="rule-wrapper">
+              <div class="rule-content">
+                <div class="rule-body">
+                  <div class="rule-sub" style="border-left-color:var(--danger);">
+                    <h4 style="color:var(--danger);">3 WARNS = OUT OF GANG</h4>
+                    <p>Kol member lezem ye7tarem les règles. Ken member yousel <strong>3 Warns</strong>, yetna7a automatiquement mel gang.</p>
+                    <p style="margin-top:6px; font-size:13px; color:var(--text-dim);">Les Warns ynajmou ykounou 3la: Manque de respect, Toxicity, Fail RP, Abuse mta3 Role, عدم احترام التنظيم, wala ay tasarrof ydhorr bel gang.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Announcements -->
+    <div class="tab-page" id="tabpage-ann">
+      <div class="hub-card">
+        <div class="hub-card-header">
+          <h2>📢 GANG DIRECTIVES & ANNOUNCEMENTS</h2>
+        </div>
+        <div class="hub-card-body" id="ann-list">
+          <p style="color:var(--text-muted);">Loading directives...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Application -->
+    <div class="tab-page" id="tabpage-apply">
+      <div class="hub-card">
+        <div class="hub-card-header">
+          <h2>📝 RECRUITMENT APPLICATION</h2>
+        </div>
+        <div class="hub-card-body" id="apply-area">
+          <!-- Injected dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script>
+let currentUser = null;
+let allMembersCache = [];
+
+function toast(msg, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span>${type === 'success' ? '✓' : '⚠'}</span> <div>${msg}</div>`;
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+
+function toggleAccordion(header) {
+  const section = header.parentElement;
+  section.classList.toggle('active');
+}
+
+function switchUserTab(name, btn) {
+  document.querySelectorAll('#sec-dashboard .tab-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#sec-dashboard .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tabpage-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function switchAdminTab(name, btn) {
+  document.querySelectorAll('#sec-admin .tab-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#sec-admin .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tabpage-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+async function init() {
+  try {
+    const res = await fetch('/api/user');
+    const user = await res.json();
+
+    if (!user.authenticated) {
+      document.getElementById('sec-landing').style.display = 'block';
+      return;
+    }
+
+    currentUser = user;
+    document.getElementById('nav-user-actions').style.display = 'flex';
+    document.getElementById('user-name').innerText = user.username;
+    document.getElementById('user-role').innerText = user.roleName || 'Guest';
+    document.getElementById('user-avatar').src = user.avatarUrl;
+
+    if (user.isAdmin) {
+      document.getElementById('sec-admin').style.display = 'block';
+      loadAdminStats();
+      loadApps('pending');
+      loadMemberList();
+    } else {
+      document.getElementById('sec-dashboard').style.display = 'block';
+      if (user.canSeeAnnouncements) {
+        document.getElementById('tabbtn-ann').style.display = 'inline-block';
+        loadAnnouncements();
+      }
+      renderApplyArea(user);
+    }
+  } catch (err) {
+    console.error('Init error:', err);
+  }
+}
+
+async function loadAdminStats() {
+  try {
+    const res = await fetch('/api/admin/stats');
+    const data = await res.json();
+    document.getElementById('stat-pending').innerText = data.pendingDossiers;
+    document.getElementById('stat-members').innerText = data.guildMembersCount;
+    document.getElementById('stat-total').innerText = data.totalApplications;
+  } catch (e) {}
+}
+
+function renderApplyArea(user) {
+  const el = document.getElementById('apply-area');
+  
+  if (user.isMember) {
+    el.innerHTML = `
+      <div style="text-align:center; padding:50px 20px;">
+        <div style="font-size:55px; margin-bottom:12px; filter:drop-shadow(0 0 15px var(--gang-green-glow));">👑</div>
+        <h3 style="font-family:'Rajdhani',sans-serif; color:var(--gang-green); font-size:24px; font-weight:700;">ACTIVE MEMBER</h3>
+        <p style="color:var(--text-muted); max-width:440px; margin:8px auto 0; font-size:14px;">Enti deja accepted member fel Families. E7tarem les règles mta3 el gang w a3mel RP s7i7.</p>
+      </div>`;
+    return;
+  }
+
+  if (user.hasApplied === 'pending') {
+    el.innerHTML = `
+      <div style="text-align:center; padding:50px 20px;">
+        <div style="font-size:50px; margin-bottom:12px;">⏳</div>
+        <h3 style="font-family:'Rajdhani',sans-serif; color:var(--warning); font-size:22px; font-weight:700;">APPLICATION UNDER REVIEW</h3>
+        <p style="color:var(--text-muted); margin-top:6px; font-size:14px;">Dossier ID: <strong style="color:#fff;">#${user.appId}</strong></p>
+        <p style="color:var(--text-dim); font-size:13px; margin-top:4px;">El demande mte3ek 9a3da tetrajja3 men 3and el High Command.</p>
+      </div>`;
+    return;
+  }
+
+  if (user.hasApplied === 'reject') {
+    el.innerHTML = `
+      <div style="text-align:center; padding:40px 20px;">
+        <div style="font-size:46px; margin-bottom:12px;">❌</div>
+        <h3 style="font-family:'Rajdhani',sans-serif; color:var(--danger); font-size:22px; font-weight:700;">APPLICATION REFUSED</h3>
+        <p style="color:var(--text-muted); font-size:14px; margin:8px 0 24px;">${user.latestApp && user.latestApp.note ? 'Reason: ' + user.latestApp.note : 'El demande mte3ek ma t9ebletch.'}</p>
+        <button class="btn-primary" onclick="showApplyForm()">3awed 9addem Dossier</button>
+      </div>`;
+    return;
+  }
+
+  showApplyForm();
+}
+
+function showApplyForm() {
+  const el = document.getElementById('apply-area');
+  el.innerHTML = `
+    <div style="max-width:680px; margin:0 auto;">
+      <div class="form-group">
+        <label class="input-label">Shnowa esmk f denya?</label>
+        <input type="text" id="q1" placeholder="Esmek f denya..." required>
+      </div>
+      <div class="form-group">
+        <label class="input-label">Shnowa esmk fel RP</label>
+        <input type="text" id="q2" placeholder="Esmek fel Game / RP..." required>
+      </div>
+      <div class="form-group">
+        <label class="input-label">9adeh 3omrek?</label>
+        <input type="number" id="q3" min="14" max="99" placeholder="18" required>
+      </div>
+      <div class="form-group">
+        <label class="input-label">Teba3 shkoun?</label>
+        <input type="text" id="q4" placeholder="Chkoun ya3rfek fel gang...">
+      </div>
+      <div class="form-group">
+        <label class="input-label">Kifeh 3raft el gang?</label>
+        <textarea id="q5" rows="2" placeholder="Kifeh sma3t bina..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="input-label">Kifeh tnejm tfid el gang?</label>
+        <textarea id="q6" rows="2" placeholder="Tnayyem t3awen fel shooting, farm, RP..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="input-label">Skill special?</label>
+        <textarea id="q7" rows="2" placeholder="Shooting, conduite, business..."></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%; margin-top:10px;" onclick="submitApp()">Submit File</button>
+    </div>
+  `;
+}
+
+async function submitApp() {
+  const q1 = document.getElementById('q1').value.trim();
+  const q2 = document.getElementById('q2').value.trim();
+  const q3 = document.getElementById('q3').value.trim();
+
+  if (!q1 || !q2 || !q3) {
+    toast('3abbi el ma3loumet el lazma.', 'error');
+    return;
+  }
+
+  const payload = {
+    q1, q2, q3,
+    q4: document.getElementById('q4').value.trim(),
+    q5: document.getElementById('q5').value.trim(),
+    q6: document.getElementById('q6').value.trim(),
+    q7: document.getElementById('q7').value.trim()
+  };
+
+  try {
+    const res = await fetch('/api/apply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.success) {
+      toast('Dossier tba3ath b nja7!');
+      setTimeout(() => location.reload(), 1000);
+    } else {
+      toast(data.error || 'Erreur f submission.', 'error');
+    }
+  } catch (e) {
+    toast('Mochkla fel network.', 'error');
+  }
+}
+
+async function loadApps(filter = 'pending') {
+  const container = document.getElementById('app-list');
+  container.innerHTML = '<p style="color:var(--text-muted);">Querying candidate records...</p>';
+
+  try {
+    const res = await fetch(`/api/admin/apps?status=${filter}`);
+    const apps = await res.json();
+
+    if (!apps.length) {
+      container.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-dim);">Fama 7atta dossier ${filter}.</div>`;
+      return;
+    }
+
+    container.innerHTML = apps.map(a => {
+      const id4 = a.id.toString().slice(-4);
+      return `
+        <div class="dossier-card">
+          <div class="dossier-header">
+            <div>
+              <div class="dossier-name">${a.q2} <span style="font-size:14px; font-weight:500; color:var(--text-muted);">(@${a.username})</span></div>
+              <div style="font-size:12px; color:var(--text-dim); margin-top:2px;">ID #${id4} • Date: ${new Date(a.date).toLocaleDateString()}</div>
+            </div>
+            <span style="font-family:'Rajdhani',sans-serif; font-size:12px; font-weight:700; padding:4px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; background:${a.status === 'pending' ? 'rgba(245, 158, 11, 0.15); color:var(--warning)' : (a.status === 'accept' ? 'rgba(0, 255, 127, 0.15); color:var(--gang-green)' : 'rgba(239, 68, 68, 0.15); color:var(--danger)')}">
+              ${a.status}
+            </span>
+          </div>
+
+          <div class="qa-grid">
+            <div class="qa-item"><div class="qa-q">Esm f denya & 3mor</div><div class="qa-a">${a.q1} (${a.q3} ans)</div></div>
+            <div class="qa-item"><div class="qa-q">Teba3 chkoun</div><div class="qa-a">${a.q4 || 'None'}</div></div>
+            <div class="qa-item"><div class="qa-q">Kifeh 3rafna</div><div class="qa-a">${a.q5 || 'N/A'}</div></div>
+            <div class="qa-item"><div class="qa-q">Ifeda lel gang</div><div class="qa-a">${a.q6 || 'N/A'}</div></div>
+            <div class="qa-item" style="grid-column:1 / -1;"><div class="qa-q">Skill Special</div><div class="qa-a">${a.q7 || 'N/A'}</div></div>
+          </div>
+
+          ${a.status === 'pending' ? `
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <input type="text" id="reason-${id4}" placeholder="Message / Note (ymchi l DM Discord mte3ou)...">
+              <div style="display:flex; gap:10px;">
+                <button class="btn-primary" style="flex:1;" onclick="decide('${id4}', 'accept')">Accept & Add Role</button>
+                <button class="btn-danger" style="flex:1;" onclick="decide('${id4}', 'reject')">Reject Application</button>
+              </div>
+            </div>
+          ` : `
+            <div style="font-size:13px; color:var(--text-dim);">Reviewed by <strong>${a.reviewedBy || 'Admin'}</strong> on ${new Date(a.reviewedAt).toLocaleDateString()} ${a.reviewNote ? '— "' + a.reviewNote + '"' : ''}</div>
+          `}
+        </div>
+      `;
+    }).join('');
+  } catch (e) {
+    container.innerHTML = '<p style="color:var(--danger)">Failed to load dossiers.</p>';
+  }
+}
+
+async function decide(id, action) {
+  const noteInput = document.getElementById(`reason-${id}`);
+  const reason = noteInput ? noteInput.value : '';
+
+  try {
+    const res = await fetch('/api/admin/decision', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ appId: id, action, reason })
+    });
+    const data = await res.json();
+    if (data.success) {
+      toast(`Dossier #${id} marked as ${action.toUpperCase()}`);
+      loadApps('pending');
+      loadAdminStats();
+    } else {
+      toast(data.error || 'Action failed', 'error');
+    }
+  } catch (e) {
+    toast('Network error.', 'error');
+  }
+}
+
+async function loadMemberList() {
+  try {
+    const res = await fetch('/api/admin/members');
+    allMembersCache = await res.json();
+    renderMemberList(allMembersCache);
+  } catch (e) {}
+}
+
+function renderMemberList(members) {
+  const container = document.getElementById('member-list-container');
+  if (!members.length) {
+    container.innerHTML = '<p style="padding:15px; color:var(--text-dim);">No server members fetched.</p>';
+    return;
+  }
+
+  container.innerHTML = members.map(m => `
+    <label class="member-row" for="chk-${m.id}">
+      <div class="member-left">
+        <input type="checkbox" id="chk-${m.id}" class="member-checkbox" value="${m.id}" onchange="updateSelectedCount()" style="accent-color:var(--gang-green); cursor:pointer;">
+        <img class="member-avatar" src="${m.avatar}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'">
+        <span class="member-name">${m.name}</span>
+      </div>
+      <span class="member-role-tag">${m.role}</span>
+    </label>
+  `).join('');
+}
+
+function filterMembers() {
+  const q = document.getElementById('member-search').value.toLowerCase();
+  const filtered = allMembersCache.filter(m => m.name.toLowerCase().includes(q) || m.role.toLowerCase().includes(q));
+  renderMemberList(filtered);
+}
+
+function selectAllMembers(checked) {
+  document.querySelectorAll('.member-checkbox').forEach(cb => cb.checked = checked);
+  updateSelectedCount();
+}
+
+function updateSelectedCount() {
+  const count = document.querySelectorAll('.member-checkbox:checked').length;
+  document.getElementById('selected-count').innerText = `${count} Selected`;
+}
+
+async function sendMassDM() {
+  const checked = Array.from(document.querySelectorAll('.member-checkbox:checked')).map(c => c.value);
+  const title = document.getElementById('dm-title').value.trim();
+  const message = document.getElementById('dm-text').value.trim();
+
+  if (!checked.length || !message) {
+    toast('Ekhtar 3al a9al member w ekteb el message.', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btn-send-dm');
+  btn.disabled = true;
+  btn.innerText = 'Transmitting...';
+
+  try {
+    const res = await fetch('/api/admin/send-dm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userIds: checked, title, message })
+    });
+    const data = await res.json();
+    if (data.success) {
+      toast(`Tba3ath l ${data.sentCount} members (${data.failCount} ma weselch - DMs closed).`);
+      document.getElementById('dm-text').value = '';
+    } else {
+      toast(data.error || 'Failed to dispatch.', 'error');
+    }
+  } catch (e) {
+    toast('Error sending mass DM.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerText = 'Transmit Direct Messages';
+  }
+}
+
+async function sendAnn() {
+  const title = document.getElementById('ann-title').value.trim();
+  const message = document.getElementById('ann-msg').value.trim();
+  const pingEveryone = document.getElementById('ann-ping').checked;
+
+  if (!message) {
+    toast('Ekteb el message mta3 l announcement.', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btn-send-ann');
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/api/admin/announce', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, message, pingEveryone })
+    });
+    const data = await res.json();
+    if (data.success) {
+      toast('Broadcast tba3ath fel Discord w fel Site.');
+      document.getElementById('ann-title').value = '';
+      document.getElementById('ann-msg').value = '';
+      loadAdminStats();
+    }
+  } catch (e) {
+    toast('Erreur fel broadcast.', 'error');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function loadAnnouncements() {
+  try {
+    const res = await fetch('/api/announcements');
+    const list = await res.json();
+    const container = document.getElementById('ann-list');
+
+    if (!list.length) {
+      container.innerHTML = '<p style="color:var(--text-dim);">Fama 7atta announcement tawwa.</p>';
+      return;
+    }
+
+    container.innerHTML = list.map(a => `
+      <div style="background:rgba(255,255,255,0.015); border:1px solid var(--card-border); border-left:4px solid var(--gang-green); border-radius:12px; padding:20px; margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+          <h4 style="font-family:'Rajdhani',sans-serif; font-size:18px; font-weight:700; color:#fff;">${a.title || 'Announcement'}</h4>
+          <span style="font-size:12px; color:var(--text-dim);">${new Date(a.date).toLocaleDateString()}</span>
+        </div>
+        <p style="color:#cbd5e1; font-size:14px; white-space:pre-line; line-height:1.7;">${a.message}</p>
+        <div style="margin-top:10px; font-family:'Rajdhani',sans-serif; font-size:13px; color:var(--gang-green); font-weight:700; text-transform:uppercase;">By ${a.author || 'High Command'}</div>
+      </div>
+    `).join('');
+  } catch (e) {}
+}
+
+init();
+</script>
+</body>
+</html>
